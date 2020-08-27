@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzy.dao.GoodsDao">
+    <select id="goodsSelect" resultType="goods">
+        SELECT
+        goods.uid AS 'uid',goods.name AS 'name',a.anums AS 'input',b.bnums AS 'output',goods.nums AS `nums`,goods.nums+b.bnums
+        -a.anums AS 'begin'
+        FROM
+        goods
+        JOIN
+        (SELECT uid AS auid,SUM(nums) AS anums FROM input GROUP BY uid)AS a,
+        (SELECT uid AS buid,SUM(nums) AS bnums FROM output GROUP BY uid)AS b
+        WHERE
+        goods.uid=b.buid AND goods.uid=a.auid
+    </select>
+    <insert id="goodsUidAdd">
+        insert into goods(uid,name)values(#{uid},#{name})
+    </insert>
+    <update id="goodsAdd">
+        update goods set nums=nums+#{nums} where uid=#{uid};
+    </update>
+    <update id="goodsReduce">
+        update goods set nums=nums-#{nums} where uid=#{uid};
+    </update>
+</mapper>

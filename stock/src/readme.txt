@@ -1,0 +1,12 @@
+实现erp系统物料出入库管理
+1.建立数据库
+    三个表
+    入库表（id，uid，name，num，date）
+    出库表（id，uid，name，num，date）
+    库存表（uid，name，num）
+2.新建maven项目
+    导入依赖
+        spring，springmvc，mybatis，mysql，jackson，jsp，servlet，druid
+3.创建配置文件
+    jdbc.properties,mybatis.xml,applicationContext.xml,dispatcherServlet.xml
+4.创建包，controller,dao,domain,service
